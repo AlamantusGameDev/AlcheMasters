@@ -16,13 +16,14 @@ export class TitleScreen extends UI {
     let playButton = this.addTextButton(game.width / 2, game.height / 2, 'Play', () => {
       this.changeState('Example');
     }, {
+      font: 'HeadingFont',
       fontSize: 20,
       buttonRadius: {
         tl: 15,
         br: 15,
       },
       buttonPaddingScale: {
-        vertical: 0.1,
+        vertical: 0.2,
         horizontal: 0.3,
       },
     });

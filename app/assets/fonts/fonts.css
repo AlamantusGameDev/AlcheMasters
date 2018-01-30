@@ -11,3 +11,15 @@
   font-weight: normal;
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'HeadingFont';
+  src: url('./AutourOne/AutourOne.eot');
+  src: url('./AutourOne/AutourOne.eot?#iefix') format('embedded-opentype'),
+  url('./AutourOne/AutourOne.woff2') format('woff2'),
+  url('./AutourOne/AutourOne.woff') format('woff'),
+  url('./AutourOne/AutourOne.ttf') format('truetype'),
+  url('./AutourOne/AutourOne.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
