@@ -9,7 +9,7 @@ export class MainScreen extends UI {
     let game = this.state.game;
 
     let mainText = this.addText(game.width / 2, game.height * 0.25, 'Phaser Example', {
-      font: 'ExampleFont',
+      font: 'TitleFont',
       size: 48,
     });
 
