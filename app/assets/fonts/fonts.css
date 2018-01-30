@@ -1,13 +1,13 @@
 /* Create a new @font-face for each new font you want to add and update loading-state.js */
 /* Remove formats you don't want to support. Otherwise, be sure all the different formats exist! */
 @font-face {
-    font-family: 'ExampleFont';
-    src: url('./Almendra/Almendra-Bold.eot');
-    src: url('./Almendra/Almendra-Bold.eot?#iefix') format('embedded-opentype'),
-    url('./Almendra/Almendra-Bold.woff2') format('woff2'),
-    url('./Almendra/Almendra-Bold.woff') format('woff'),
-    url('./Almendra/Almendra-Bold.ttf') format('truetype'),
-    url('./Almendra/Almendra-Bold.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'ExampleFont';
+  src: url('./Almendra/Almendra-Bold.eot');
+  src: url('./Almendra/Almendra-Bold.eot?#iefix') format('embedded-opentype'),
+  url('./Almendra/Almendra-Bold.woff2') format('woff2'),
+  url('./Almendra/Almendra-Bold.woff') format('woff'),
+  url('./Almendra/Almendra-Bold.ttf') format('truetype'),
+  url('./Almendra/Almendra-Bold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
 }

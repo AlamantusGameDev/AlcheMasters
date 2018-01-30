@@ -11,31 +11,31 @@ import backgroundImagePath from '../assets/images/background.png';
 import exampleMapJSONPath from '../assets/maps/example-map.json';
 
 export class LoadingState extends Phaser.State {
-    constructor (...args) {
-        super(...args);
-    }
+  constructor (...args) {
+    super(...args);
+  }
 
-    preload () {
-        let loader = this.add.image(this.world.centerX, this.world.centerY, 'loader');
-        loader.anchor.set(0.5, 0.5);
-        this.load.setPreloadSprite(loader);
+  preload () {
+    let loader = this.add.image(this.world.centerX, this.world.centerY, 'loader');
+    loader.anchor.set(0.5, 0.5);
+    this.load.setPreloadSprite(loader);
 
-        this.load.image('player', playerImagePath);
-        this.load.image('background', backgroundImagePath);
-        this.load.tilemap('example-map', null, exampleMapJSONPath, Phaser.Tilemap.TILED_JSON);
-    }
+    this.load.image('player', playerImagePath);
+    this.load.image('background', backgroundImagePath);
+    this.load.tilemap('example-map', null, exampleMapJSONPath, Phaser.Tilemap.TILED_JSON);
+  }
 
-    create () {
-        this.time.events.add(500, () => {
-            this.game.trigger(STATE_EVENTS.LOADING_COMPLETED);
-        });
-    }
+  create () {
+    this.time.events.add(500, () => {
+      this.game.trigger(STATE_EVENTS.LOADING_COMPLETED);
+    });
+  }
 
-    update () {
+  update () {
 
-    }
+  }
 
-    render () {
+  render () {
 
-    }
+  }
 }
