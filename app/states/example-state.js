@@ -23,15 +23,15 @@ export class ExampleState extends Phaser.State {
     this.layer.resizeWorld();
     // this.layer.debug = true;
 
-    this.game.player = new Player(this.game, PLAYER.DEFAULT_X, PLAYER.DEFAULT_Y);
+    this.player = new Player(this.game, PLAYER.DEFAULT_X, PLAYER.DEFAULT_Y);
     this.game.trigger(STATE_EVENTS.EXAMPLE_COMPLETED);
   }
 
   update () {
-    this.physics.arcade.collide(this.game.player, this.layer);
+    this.physics.arcade.collide(this.player, this.layer);
   }
 
   render () {
-    // this.game.debug.body(this.game.player);
+    // this.game.debug.body(this.player);
   }
 }
