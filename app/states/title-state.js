@@ -1,7 +1,7 @@
 import GAME from '../constants/game';
 import STATE_EVENTS from '../constants/state-events';
 
-import {MainScreen} from '../models/guis/main-screen';
+import { TitleScreen } from '../models/guis/title-screen';
 
 export class TitleState extends Phaser.State {
   constructor (...args) {
@@ -12,7 +12,7 @@ export class TitleState extends Phaser.State {
   }
 
   create () {
-    this.gui = new MainScreen(this);
+    this.gui = new TitleScreen(this);
     this.gui.show();
 
     this.game.trigger(STATE_EVENTS.EXAMPLE_COMPLETED);
