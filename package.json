@@ -1,0 +1,54 @@
+{
+    "name": "phaser-es2016-webpack-boilerplate",
+    "version": "1.0.3",
+    "description": "Start a Phaser.js project using Webpack and ECMAScript 2016 syntax.",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Piotr Kowalski",
+            "email": "piecioshka@gmail.com",
+            "url": "https://piecioshka.pl/"
+        },
+        {
+            "name": "Robbie Antenesse",
+            "email": "gamedev@alamantus.com",
+            "url": "http://alamantus.com/"
+        }
+    ],
+    "scripts": {
+        "dev": "webpack-dev-server",
+        "watch": "webpack --progress -w",
+        "build": "webpack --profile -p",
+        "clear": "rm -rf ./public/dist/",
+        "clear-cmd": "rd .\\public\\dist\\ /s /q",
+        "clear-project": "rm -rf ./node_modules/ ./npm-debug.log ./public/dist/ ./typings/",
+        "clear-project-cmd": "rd .\\node_modules\\ .\\npm-debug.log .\\public\\dist\\ .\\typings\\ /s /q",
+        "count": "find app -name '*.js' | xargs wc -l | sort",
+        "count-cmd": "dir /b /s .\\app\\*.js | findstr /f:/ /v \"^$\" | find /c /v \"\"",
+        "typings": "typings install"
+    },
+    "dependencies": {
+        "babel-polyfill": "^6.26.0",
+        "phaser-ce": "^2.10.0",
+        "super-event-emitter": "^4.1.4"
+    },
+    "devDependencies": {
+        "babel-core": "^6.26.0",
+        "babel-loader": "^7.1.2",
+        "babel-preset-env": "^1.6.1",
+        "css-loader": "^0.28.9",
+        "file-loader": "^1.1.6",
+        "img-loader": "^2.0.0",
+        "json-loader": "^0.5.7",
+        "script-loader": "^0.7.2",
+        "style-loader": "^0.20.1",
+        "typings": "^2.1.1",
+        "url-loader": "^0.6.2",
+        "webpack": "^3.10.0",
+        "webpack-dev-server": "^2.11.1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/AlamantusGameDev/phaser-es2016-webpack-boilerplate"
+    }
+}
