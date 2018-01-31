@@ -1,9 +1,8 @@
-export class Geolocation {
-  constructor (parent) {
-    this.parent = parent;
-  }
+import GEOLOCATION from '../constants/geolocation';
+import { closestMultipleOf } from './helper';
 
-  get canUseGeolocation () {
+export class Geolocation {
+  static get canUseGeolocation () {
     if (window.navigator && window.navigator.geolocation) {
       console.info('geolocation api available');
       return true;
@@ -12,15 +11,15 @@ export class Geolocation {
     return false;
   }
 
-  getCoords(successCallback) {
-    if (this.canUseGeolocation) {
+  static getCoords(successCallback) {
+    if (Geolocation.canUseGeolocation) {
+      let done = false;
       window.navigator.geolocation.getCurrentPosition((position) => {
         const { coords } = position;
-        if (successCallback) {
-          successCallback({
-            latitude: coords.latitude,
-            longitude: coords.longitude,
-          });
+        if (successCallback && !done) {
+          done = true;
+          const geoAnchor = Geolocation.getGeoAnchor(coords);
+          successCallback(geoAnchor);
         }
       }, (error) => {
         console.error(error.message);
@@ -32,5 +31,12 @@ export class Geolocation {
     } else {
       console.error('geolocation api not available');
     }
+  }
+
+  static getGeoAnchor (coords) {
+    return {
+      latitude: closestMultipleOf(GEOLOCATION.ANCHOR_INCREMENT, coords.latitude),
+      longitude: closestMultipleOf(GEOLOCATION.ANCHOR_INCREMENT, coords.longitude),
+    };
   }
 }

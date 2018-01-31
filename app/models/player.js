@@ -6,7 +6,6 @@ export class Player extends Phaser.Sprite {
 
     game.add.existing(this);
     game.physics.arcade.enable(this);
-    this.geolocation = new Geolocation(this);
     this.frame = 0;
   }
 
@@ -14,7 +13,7 @@ export class Player extends Phaser.Sprite {
     this.frame++;
 
     if (this.frame % 3000 === 0) {
-      this.geolocation.getCoords((coords) => console.log(coords));
+      Geolocation.getCoords((coords) => console.log(coords));
     }
 
     this.x += 1;

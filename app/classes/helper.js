@@ -1,3 +1,7 @@
+export function closestMultipleOf(multiple, number) {
+  return Math.round(number / multiple) * multiple;
+}
+
 /**
  * Draws a rounded rectangle using the current state of the canvas.
  * If you omit the last three params, it will draw a rectangle
