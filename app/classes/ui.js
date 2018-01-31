@@ -1,5 +1,5 @@
 import UICONST from '../constants/ui';
-import Helper from './helper';
+import { roundRect } from './helper';
 
 export class UI {
   constructor (name, state) {
@@ -155,7 +155,7 @@ export class UI {
     // draw to the canvas context like normal
     // bitmapData.ctx.beginPath();
     bitmapData.ctx.fillStyle = buttonColor;
-    Helper.roundRect(bitmapData.ctx, 0, 0, bitmapButtonWidth, bitmapButtonHeight, buttonRadius);
+    roundRect(bitmapData.ctx, 0, 0, bitmapButtonWidth, bitmapButtonHeight, buttonRadius);
 
     // use the bitmap data as the texture for the sprite
     let button = this.addButton(x, y, bitmapData, callback, {
