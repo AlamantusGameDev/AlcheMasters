@@ -2,7 +2,7 @@ import { UI } from '../../classes/ui';
 
 export class TitleScreen extends UI {
   constructor (state) {
-    super('MainScreenGUI', state);
+    super('TitleScreenGUI', state);
   }
 
   setup () {
@@ -14,7 +14,7 @@ export class TitleScreen extends UI {
     });
 
     let playButton = this.addTextButton(game.width / 2, game.height / 2, 'Play', () => {
-      this.changeState('Example');
+      this.changeState('Map');
     }, {
       font: 'HeadingFont',
       fontSize: 20,

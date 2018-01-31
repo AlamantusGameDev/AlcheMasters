@@ -4,6 +4,7 @@ import { BootstrapState } from './states/bootstrap-state';
 import { LoadingState } from './states/loading-state';
 import { TitleState } from './states/title-state';
 import { ExampleState } from './states/example-state';
+import { MapState } from './states/map-state';
 
 export class StateManager {
   constructor(game = null) {
@@ -18,6 +19,7 @@ export class StateManager {
     this.game.state.add('Loading', LoadingState);
     this.game.state.add('Title', TitleState);
     this.game.state.add('Example', ExampleState);
+    this.game.state.add('Map', MapState);
   }
 
   setupNativeListeners() {
