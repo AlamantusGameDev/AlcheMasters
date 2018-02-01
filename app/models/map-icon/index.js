@@ -18,8 +18,8 @@ export class MapIcon extends Phaser.Image {
 
     this.loadTexture('player');
 
-    this.x = Math.round(this.game.width * this.random());
-    this.y = Math.round(this.game.height * this.random());
+    this.x = Math.round((this.game.width - this.width) * this.random()) + this.width;
+    this.y = Math.round((this.game.height - this.height) * this.random()) + this.height;
     const lifetime = (this.random() * (GAME.MAX_LIFETIME - GAME.MIN_LIFETIME)) + GAME.MIN_LIFETIME;
     this.deathTime = moment.utc(this.genTime).add(lifetime, 'minutes');
     console.log('deaTime', this.deathTime.format('h:mm:ss a'));
