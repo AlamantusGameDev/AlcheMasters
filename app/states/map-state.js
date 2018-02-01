@@ -16,6 +16,16 @@ export class MapState extends Phaser.State {
     this.timesRun = 0;
 
     this.icons = [];
+    this.timer = null;
+  }
+
+  get generationsToday () {
+    const now = moment.utc();
+    const hour = now.hour();
+    // console.log('hour', hour);
+    const minute = now.minute();
+    // console.log('minute', minute);
+    return Math.floor(((hour * 60) + minute) / GAME.GENERATE_EVERY_X_MINUTES);
   }
 
   create () {
@@ -23,6 +33,11 @@ export class MapState extends Phaser.State {
       this.position = coords;
       console.log(this.position);
       this.generate();
+      if (this.timer === null) {
+        this.timer = this.game.time.events.loop(Phaser.Timer.MINUTE * GAME.GENERATE_EVERY_X_MINUTES, this.createIcon, this, this.generationsToday);
+      } else {
+        this.timer.start();
+      }
     });
   }
 
@@ -40,27 +55,27 @@ export class MapState extends Phaser.State {
     console.log('seed', seed);
 
     const random = seedRandom(seed);
-    const hour = now.hour();
-    // console.log('hour', hour);
-    const minute = now.minute();
-    // console.log('minute', minute);
-    const generationsToday = Math.floor(((hour * 60) + minute) / 5);
-    console.log('generationsToday', generationsToday);
+    
+    console.log('generationsToday', this.generationsToday);
 
     console.log('curTime', now.format('h:mm:ss a'));
-    for (let i = 0; i < generationsToday; i++) {
+    for (let i = 0; i < this.generationsToday; i++) {
       random(); // Run random() to get it to the right seeded number
-      if (i >= generationsToday - 3) {
-        const minutesAgo = (generationsToday - (i + 1)) * 5;
-        const timeXMinutesAgo = moment.utc(now).subtract(minutesAgo, 'minutes');
-        const roundedMinute = Math.floor(timeXMinutesAgo.minute() / 5) * 5;
-        const genTime = timeXMinutesAgo.minute(roundedMinute).second(0);
-        console.log('genTime', genTime.format('h:mm:ss a'));
-        const icon = new MapIcon(this.game, i, this.icons.length, genTime);
-        this.icons.push(icon);
+      if (i >= this.generationsToday - 3) {
+        const minutesAgo = (this.generationsToday - (i + 1)) * GAME.GENERATE_EVERY_X_MINUTES;
+        this.createIcon(i, minutesAgo);
       }
     }
     console.log(this.icons);
+  }
+
+  createIcon (generation, minutesAgo = 0) {
+    const timeXMinutesAgo = moment.utc().subtract(minutesAgo, 'minutes');
+    const roundedMinute = Math.floor(timeXMinutesAgo.minute() / GAME.GENERATE_EVERY_X_MINUTES) * GAME.GENERATE_EVERY_X_MINUTES;
+    const genTime = timeXMinutesAgo.minute(roundedMinute).second(0);
+    console.log('genTime', genTime.format('h:mm:ss a'));
+    const icon = new MapIcon(this.game, generation, this.icons.length, genTime);
+    this.icons.push(icon);
   }
 
   update () {
@@ -78,5 +93,6 @@ export class MapState extends Phaser.State {
       icon.destroy();
     });
     this.icons = [];
+    this.timer.stop();
   }
 }
