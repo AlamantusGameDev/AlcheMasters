@@ -6,16 +6,16 @@ import { closestMultipleOf } from '../classes/helper';
 import { Geolocation } from '../classes/geolocation';
 
 import { Player } from '../models/player';
-import { MapIcon } from '../models/map-icon';
+import { IconGeneration } from '../models/map-icon/icon-generation';
 
 export class MapState extends Phaser.State {
   constructor (...args) {
     super(...args);
 
     this.position = null;
-    this.timesRun = 0;
+    this.lastGeneration = 0;
 
-    this.icons = [];
+    this.iconGenerations = [];
     this.timer = null;
   }
 
@@ -34,7 +34,7 @@ export class MapState extends Phaser.State {
       console.log(this.position);
       this.generate();
       if (this.timer === null) {
-        this.timer = this.game.time.events.loop(Phaser.Timer.MINUTE * GAME.GENERATE_EVERY_X_MINUTES, this.createIcon, this, this.generationsToday);
+        this.timer = this.game.time.events.loop(Phaser.Timer.MINUTE * GAME.GENERATE_EVERY_X_MINUTES, this.createIconGeneration, this, this.generationsToday);
       } else {
         this.timer.start();
       }
@@ -53,29 +53,27 @@ export class MapState extends Phaser.State {
       + (Math.sign(latitudeInt) >= 0 ? '+' : '-') + Math.abs(longitudeInt).toString().padStart(5, '0')
       + year.toString() + month.toString().padStart(2, '0') + day.toString().padStart(2, '0');
     console.log('seed', seed);
-
-    const random = seedRandom(seed);
     
     console.log('generationsToday', this.generationsToday);
 
     console.log('curTime', now.format('h:mm:ss a'));
     for (let i = 0; i < this.generationsToday; i++) {
-      random(); // Run random() to get it to the right seeded number
       if (i >= this.generationsToday - 3) {
         const minutesAgo = (this.generationsToday - (i + 1)) * GAME.GENERATE_EVERY_X_MINUTES;
-        this.createIcon(i, minutesAgo);
+        this.createIconGeneration(i, minutesAgo);
       }
     }
-    console.log(this.icons);
+    console.log(this.iconGenerations);
   }
 
-  createIcon (generation, minutesAgo = 0) {
+  createIconGeneration (generation, minutesAgo = 0) {
     const timeXMinutesAgo = moment.utc().subtract(minutesAgo, 'minutes');
     const roundedMinute = Math.floor(timeXMinutesAgo.minute() / GAME.GENERATE_EVERY_X_MINUTES) * GAME.GENERATE_EVERY_X_MINUTES;
     const genTime = timeXMinutesAgo.minute(roundedMinute).second(0);
     console.log('genTime', genTime.format('h:mm:ss a'));
-    const icon = new MapIcon(this.game, generation, this.icons.length, genTime);
-    this.icons.push(icon);
+    const iconGeneration = new IconGeneration(this.game, generation, genTime, this.position);
+    this.iconGenerations.push(iconGeneration);
+    this.lastGeneration = generation;
   }
 
   update () {
@@ -89,10 +87,10 @@ export class MapState extends Phaser.State {
   }
 
   shutdown () {
-    this.icons.forEach(icon => {
-      icon.destroy();
+    this.iconGenerations.forEach(generation => {
+      generation.destroy();
     });
-    this.icons = [];
+    this.iconGenerations = [];
     this.timer.stop();
   }
 }
